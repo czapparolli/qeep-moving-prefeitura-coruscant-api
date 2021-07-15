@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Projeto {
@@ -29,14 +33,17 @@ public class Projeto {
 	
 	private float custo;
 	
+	//@JsonFormat(pattern = "dd/MM/aaaa")
 	@Column(name = "data_prevista_conclusao", nullable = false)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dataPrevistaConclusao;
 	
-	@Column(name = "data_conclusao", nullable = false)
+	@Column(name = "data_conclusao")
 	private LocalDate dataConclusao;
 
 	private boolean concluido;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "secretaria_fk", referencedColumnName = "id_secretaria")
 	private Secretaria secretaria;

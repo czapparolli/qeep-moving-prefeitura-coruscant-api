@@ -1,6 +1,8 @@
-package br.com.qeep.moving.gerencia.coruscant.api.entity;
+	package br.com.qeep.moving.gerencia.coruscant.api.entity;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Servidor {
@@ -32,6 +36,7 @@ public class Servidor {
 	@Column(nullable = false)
 	private String cargo;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "secretaria_fk",referencedColumnName = "id_secretaria")
 	private Secretaria secretaria;
@@ -97,6 +102,8 @@ public class Servidor {
 	public void setSecretaria(Secretaria secretaria) {
 		this.secretaria = secretaria;
 	}
+
+	
 	
 	
 	

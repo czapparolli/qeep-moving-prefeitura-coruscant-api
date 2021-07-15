@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Secretaria {
 
@@ -26,7 +28,7 @@ public class Secretaria {
 	@Column(name = "id_secretaria")
 	private long idSecretaria;
 
-	@Column(name = "nome", nullable = false, length = 50)
+	@Column(name = "nome", nullable = false, length = 100)
 	private String nome;
 
 	@Enumerated(EnumType.STRING)
@@ -37,10 +39,11 @@ public class Secretaria {
 
 	@Column(name = "orcamento_projeto", nullable = false)
 	private float orcamentoProjeto;
-
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "secretaria", fetch = FetchType.EAGER)
 	private List<Projeto> projetos;
-
+	@JsonManagedReference
 	@OneToMany(mappedBy = "secretaria")
 	private List<Servidor> Servidores;
 
@@ -58,6 +61,8 @@ public class Secretaria {
 
 	public Secretaria() {
 	}
+
+
 
 	public long getIdSecretaria() {
 		return idSecretaria;
