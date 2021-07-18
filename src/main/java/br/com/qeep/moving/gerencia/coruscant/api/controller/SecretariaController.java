@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.qeep.moving.gerencia.coruscant.api.dto.CriaSecretariaDTO;
+import br.com.qeep.moving.gerencia.coruscant.api.dto.SecretariaCriadaDTO;
+import br.com.qeep.moving.gerencia.coruscant.api.entity.Projeto;
 import br.com.qeep.moving.gerencia.coruscant.api.entity.Secretaria;
+import br.com.qeep.moving.gerencia.coruscant.api.exception.ErroDeNegocioException;
 import br.com.qeep.moving.gerencia.coruscant.api.service.SecretariaService;
 import br.com.qeep.moving.gerencia.coruscant.api.service.ProjetoService;
 
@@ -31,34 +35,39 @@ public class SecretariaController {
 	ProjetoService projetoService;
 
 	@PostMapping
-	public Secretaria cadastraSecretaria(@Valid @RequestBody Secretaria secretaria /* FazerDTO */) {
-		return secretariaService.cadastraSecretaria(secretaria);
+	public SecretariaCriadaDTO criaSecretaria(@Valid @RequestBody CriaSecretariaDTO criaSecretaria /*receberia o DTO*/ ) throws ErroDeNegocioException {
+		return secretariaService.criaSecretaria(criaSecretaria);
 	}
-
+	
 	@GetMapping
-	public List<Secretaria> listaSecretarias() {
-		return secretariaService.listaSecretarias();
+	public List<Secretaria> listarSecretarias() {
+		return secretariaService.listarSecretarias();
 	}
-
+	
 	@GetMapping(path = "/{idSecretaria}")
-	public Optional<Secretaria> consultaSecretariaPeloId(@PathVariable long idSecretaria) {
-		return secretariaService.consultaSecretariaPeloId(idSecretaria);
+	public Secretaria consultaSecretaria (@PathVariable long idSecretaria) {
+		// classe de servico
+		return null;
 	}
-
-	@DeleteMapping(path = "/{idSecretaria}")
-	public boolean deletaSecretariaPeloId(@PathVariable long idSecretaria) {
-		return secretariaService.deletaSecretariaPeloId(idSecretaria);
-
+	
+	@DeleteMapping( path ="/{idSecretaria}")
+	public void removeSecretaria(@PathVariable long idSecretaria) {
+		
 	}
-
+	
 	@GetMapping(path = "/{idSecretaria}/folha-pagamento")
-	public double folhaPagamentoPorProjeto(@PathVariable long idSecretaria) {
-		return secretariaService.folhaPagamento(idSecretaria);
+	public Double calculaFolhaPagamento(@PathVariable long idSecretaria) {
+		return null;
 	}
-
+	
 	@GetMapping(path = "/{idSecretaria}/custo-projeto")
-	public double calculaCustoPorProjeto(@PathVariable long idSecretaria) {
-		return projetoService.calculaCustoPorProjeto(idSecretaria);
+	public Double calculaCustoProjeto(@PathVariable long idSecretaria) {
+		return null;
+	}
+	
+	@PutMapping(path = "/{idSecretaria}/aporte-projetos")
+	public String realizaAporte(@PathVariable long idSecretaria, @Valid @RequestBody Projeto aumentoDto) {
+		return null;
 	}
 
 	/*

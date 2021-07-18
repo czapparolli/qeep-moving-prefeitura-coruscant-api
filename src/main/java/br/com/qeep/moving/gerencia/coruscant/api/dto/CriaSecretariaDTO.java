@@ -1,5 +1,8 @@
 package br.com.qeep.moving.gerencia.coruscant.api.dto;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,14 +13,17 @@ public class CriaSecretariaDTO {
 
 	@NotBlank
 	private String nome;
-	
-	@NotBlank
+
+	@NotNull
+	@Enumerated(EnumType.STRING)
 	private Pasta pasta;
-	
+
 	@NotNull
+	@Min(value = 1000)
 	private double orcamentoFolha;
-	
+
 	@NotNull
+	@Min(value = 1000)
 	private double orcamentoProjeto;
 
 	private CriaSecretariaDTO(@NotBlank String nome, @NotBlank Pasta pasta, @NotNull double orcamentoFolha,
@@ -28,11 +34,11 @@ public class CriaSecretariaDTO {
 		this.orcamentoFolha = orcamentoFolha;
 		this.orcamentoProjeto = orcamentoProjeto;
 	}
-	
-	//public Secretaria toEntity() {
-		//return new Secretaria(this.getNome(), this.getPasta(), this.getOrcamentoFolha(), this.getOrcamentoProjeto());
-	//}
-	
+
+	public Secretaria toEntity() {
+		return new Secretaria(this.getNome(), this.getPasta(), this.orcamentoFolha, this.orcamentoProjeto);
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -64,7 +70,5 @@ public class CriaSecretariaDTO {
 	public void setOrcamentoProjeto(double orcamentoProjeto) {
 		this.orcamentoProjeto = orcamentoProjeto;
 	}
-	
-		
-	
+
 }

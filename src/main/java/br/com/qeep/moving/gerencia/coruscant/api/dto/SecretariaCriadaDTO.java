@@ -1,15 +1,12 @@
 package br.com.qeep.moving.gerencia.coruscant.api.dto;
 
 public class SecretariaCriadaDTO {
-	
+
 	private long idSecretaria;
-	
 	private String nome;
-	
 	private String mensagem;
 
-	private SecretariaCriadaDTO(long idSecretaria, String nome, String mensagem) {
-		super();
+	public SecretariaCriadaDTO(long idSecretaria, String nome, String mensagem) {
 		this.idSecretaria = idSecretaria;
 		this.nome = nome;
 		this.mensagem = mensagem;
@@ -38,7 +35,5 @@ public class SecretariaCriadaDTO {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
-	
-	
+
 }

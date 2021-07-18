@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,17 +37,17 @@ public class Secretaria {
 	private Pasta pasta;
 
 	@Column(name = "orcamento_folha", nullable = false)
-	private float orcamentoFolha;
+	private double orcamentoFolha;
 
 	@Column(name = "orcamento_projeto", nullable = false)
-	private float orcamentoProjeto;
+	private double orcamentoProjeto;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "secretaria", fetch = FetchType.EAGER)
 	private List<Projeto> projetos;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "secretaria")
-	private List<Servidor> Servidores;
+	private List<Servidor> servidores;
 
 	private Secretaria(long idSecretaria, String nome, Pasta pasta, float orcamentoFolha, float orcamentoProjeto,
 			List<Projeto> projetos, List<Servidor> servidores) {
@@ -56,13 +58,15 @@ public class Secretaria {
 		this.orcamentoFolha = orcamentoFolha;
 		this.orcamentoProjeto = orcamentoProjeto;
 		this.projetos = projetos;
-		Servidores = servidores;
+		this.servidores = servidores;
 	}
 
-	public Secretaria() {
+	public Secretaria(String nome, Pasta pasta, double orcamentoFolha, double orcamentoProjeto) {
+		this.nome = nome;
+		this.pasta = pasta;
+		this.orcamentoFolha = orcamentoFolha;
+		this.orcamentoProjeto = orcamentoProjeto;
 	}
-
-
 
 	public long getIdSecretaria() {
 		return idSecretaria;
@@ -88,20 +92,20 @@ public class Secretaria {
 		this.pasta = pasta;
 	}
 
-	public float getOrcamentoFolha() {
+	public double getOrcamentoFolha() {
 		return orcamentoFolha;
 	}
 
-	public void setOrcamentoFolha(float orcamentoFolha) {
+	public void setOrcamentoFolha(double orcamentoFolha) {
 		this.orcamentoFolha = orcamentoFolha;
 	}
 
-	public float getOrcamentoProjeto() {
+	public double getOrcamentoProjeto() {
 		return orcamentoProjeto;
 	}
 
-	public void setOrcamentoProjeto(float orcamentoProjeto) {
-		this.orcamentoProjeto = orcamentoProjeto;
+	public void setOrcamentoProjeto(double d) {
+		this.orcamentoProjeto = d;
 	}
 
 	public List<Projeto> getProjetos() {
@@ -113,11 +117,11 @@ public class Secretaria {
 	}
 
 	public List<Servidor> getServidores() {
-		return Servidores;
+		return servidores;
 	}
 
 	public void setServidores(List<Servidor> servidores) {
-		Servidores = servidores;
+		servidores = servidores;
 	}
 
 }
